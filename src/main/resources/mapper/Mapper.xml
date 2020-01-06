@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间 namespace 全球唯一 包 -->
+<mapper namespace="com.mq.mapper.CarMapper">
+
+	<insert id="addError">
+		insert error(eid,ename) values(#{eid},#{ename})
+	</insert>
+
+	<insert id="addCar" parameterType="Car">
+		insert
+		car(id,ms,name,cp,adds,price,btime,etime,zt,bz)
+		values(#{id},#{ms},#{name},#{cp},#{adds},#{price},#{btime},#{etime},#{zt},#{bz})
+	</insert>
+
+	<select id="selectAll" parameterType="map" resultType="Car">
+		select * from car
+		<where>
+			<if test="name!=null and name!=''">
+				name like '%${name}%'
+			</if>
+			<!-- <if test="id!=null and id!=''"> and id like '%${id}%' </if> <if test="ms!=null 
+				and name!='ms'"> and ms like '%${ms}%' </if> <if test="cp!=null and cp!=''"> 
+				and cp like '%${cp}%' </if> <if test="adds!=null and adds!=''"> and adds 
+				like '%${adds}%' </if> <if test="price!=null and price!=''"> and price like 
+				'%${price}%' </if> <if test="btime!=null and btime!=''"> and btime like '%${btime}%' 
+				</if> <if test="etime!=null and etime!=''"> and etime like '%${etime}%' </if> 
+				<if test="zt!=null and zt!=''"> and zt like '%${zt}%' </if> -->
+
+		</where>
+	</select>
+
+	<select id="selectOne" parameterType="int" resultType="Car">
+		select *
+		from car where id=#{id}
+	</select>
+
+	<update id="updateCar" parameterType="Car">
+		update car set
+		ms=#{ms},name=#{name},cp=#{cp},adds=#{adds},price=#{price},btime=#{btime},etime=#{etime},zt=#{zt},bz=#{bz}
+		where id=#{id}
+	</update>
+
+</mapper>
